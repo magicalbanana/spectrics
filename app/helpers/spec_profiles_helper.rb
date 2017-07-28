@@ -1,0 +1,2 @@
+module SpecProfilesHelper
+end
