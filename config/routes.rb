@@ -3,4 +3,8 @@ Rails.application.routes.draw do
 
   resources :spec_profiles
 
+  constraints subdomain: "hooks" do
+    post '/:circle_ci' => 'webhooks#receive', as: :receive_webhooks
+  end
+
 end

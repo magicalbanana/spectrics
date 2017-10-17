@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 git_source(:github) do |repo_name|
-  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
+  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?('/')
   "https://github.com/#{repo_name}.git"
 end
 
@@ -36,11 +36,10 @@ gem 'jbuilder', '~> 2.5'
 # gem 'capistrano-rails', group: :development
 
 group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   # Adds support for Capybara system testing and selenium driver
+  gem 'pry-rails'
   gem 'capybara', '~> 2.13'
-  gem 'selenium-webdriver'
+  gem 'selenium-webdriver', '3.5.1', require: false
 end
 
 group :development do
@@ -54,3 +53,13 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
+group :test do
+  gem 'rspec-rails', '~> 3.6'
+  gem 'shoulda-matchers', '~> 3.1'
+  gem 'database_cleaner', '~> 1.5.3'
+  gem 'webmock', '~> 2.3.2'
+  gem 'chromedriver-helper', '~> 1.1.0'
+  gem 'site_prism', '~> 2.9'
+  gem 'fivemat'
+end
