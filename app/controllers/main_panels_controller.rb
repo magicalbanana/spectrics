@@ -3,7 +3,7 @@ class MainPanelsController < ActionController::Base
   layout "application"
 
   def index
-
+    # r.table('users').changes.run(conn).each{|change| p(change)}
   end
 
 end

@@ -12,6 +12,7 @@ gem 'rails', '~> 5.1.2'
 gem 'mysql2', '>= 0.3.18', '< 0.5'
 gem 'rethinkdb', '~> 2.3'
 gem 'nobrainer'
+gem 'nobrainer_streams'
 # Use Puma as the app server
 gem 'puma', '~> 3.7'
 # Use SCSS for stylesheets
