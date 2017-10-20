@@ -5,11 +5,15 @@
 // All it does is render <div>Hello Vue</div> at the bottom of the page.
 
 import Vue from 'vue'
-import App from './app.vue'
+import App from '../components/app.vue'
 
 document.addEventListener('DOMContentLoaded', () => {
-  document.body.appendChild(document.createElement('hello'))
-  const app = new Vue(App).$mount('hello')
+    document.body.appendChild(document.createElement('app'))
+    const app = new Vue({
+        el: 'app',
+        template: '<App/>',
+        components: { App }
+    })
 
-  console.log(app)
+    console.log(app)
 })

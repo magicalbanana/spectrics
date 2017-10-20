@@ -1,6 +1,6 @@
 class MainPanelsController < ActionController::Base
+  layout "application"
 
-  def index
-  end
+  def index; end;
 
 end
