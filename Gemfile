@@ -10,6 +10,8 @@ end
 gem 'rails', '~> 5.1.2'
 # Use mysql as the database for Active Record
 gem 'mysql2', '>= 0.3.18', '< 0.5'
+gem 'rethinkdb', '~> 2.3'
+gem 'nobrainer'
 # Use Puma as the app server
 gem 'puma', '~> 3.7'
 # Use SCSS for stylesheets

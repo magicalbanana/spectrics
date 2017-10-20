@@ -1,6 +1,6 @@
-<div>manual input</div>
-
-<canvas id="myChart" width="400" height="200"></canvas>
+<div class="panel_container">
+  <canvas id="myChart" class="metric_panel"></canvas>
+</div>
 
 <script type="text/javascript">
   var ctx = document.getElementById("myChart").getContext('2d');
@@ -10,7 +10,7 @@
         labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
         datasets: [{
             label: 'Successful Builds',
-            data: [12, 19, 3, 5, 2, 3],
+            data: <%= @sucessful_builds %>,
             backgroundColor: "rgba(75, 192, 192, 0.2)",
             borderColor: "rgba(75, 192, 192, 1)",
             borderWidth: 1
