@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :main_panels
+  resources :users
   resources :active_builds
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root 'main_panels#index'

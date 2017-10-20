@@ -1,0 +1,27 @@
+<%= form_with(model: main_panel, local: true) do |form| %>
+  <% if main_panel.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(main_panel.errors.count, "error") %> prohibited this main_panel from being saved:</h2>
+
+      <ul>
+      <% main_panel.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :build_name %>
+    <%= form.text_field :build_name, id: :main_panel_build_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :count %>
+    <%= form.number_field :count, id: :main_panel_count %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

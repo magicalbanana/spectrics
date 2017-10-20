@@ -1,4 +1,4 @@
-class ActiveBuildsChannel < ApplicationCable::Channel
+class ActiveUsersChannel < ApplicationCable::Channel
   include NoBrainer::Streams
 
   def subscribed
