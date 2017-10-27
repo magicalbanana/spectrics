@@ -8,7 +8,7 @@ class MainPanelsController < ApplicationController
   # GET /main_panels.json
   def index
     cookies[:builds] ||= {
-      :value => '000000000000',
+      :value => '0,0,0,0,0,0,0,0,0,0,0,0',
       :expires => 1.year.from_now,
       :domain => 'localhost'
     }

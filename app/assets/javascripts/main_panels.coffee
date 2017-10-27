@@ -20,7 +20,6 @@ App.main_panels =
       ("<li>#{user.id}</li>" for id,user of @active_users).join("")
     )
 
-
   add_build: (new_build, label) ->
     chart = @build_chart() # Grab latest chart data
     month_name = App.ci_builds.getMonthLabel(new_build)
@@ -35,12 +34,11 @@ App.main_panels =
     builds_string = @getCookie('builds')
     builds_array = @stringToArray(builds_string)
     builds_array[month_index]++
-    builds_string = builds_array.join('')
-    console.log(builds_array)
+    builds_string = builds_array.join(',')
     @setCookie('builds', builds_string, 365)
 
   stringToArray: (string) ->
-    array = string.split('')
+    array = string.split(',')
     i = 0
     while i < array.length
       array[i] = +array[i]
@@ -50,7 +48,6 @@ App.main_panels =
   setCookie: (cname, cvalue, exdays) ->
     d = new Date();
     d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
-    console.log(d)
     expires = "expires="+d.toUTCString();
     document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
 
