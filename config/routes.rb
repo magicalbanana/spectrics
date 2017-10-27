@@ -7,7 +7,7 @@ Rails.application.routes.draw do
 
   resources :spec_profiles
 
-  mount ActionCable.server => '/cable'
+  mount ActionCable.server => '/cable' #May not be necessary anymore
 
   constraints subdomain: "hooks" do
     post '/:circle_ci' => 'webhooks#receive', as: :receive_webhooks

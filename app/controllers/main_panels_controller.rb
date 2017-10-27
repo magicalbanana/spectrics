@@ -1,10 +1,11 @@
 class MainPanelsController < ApplicationController
   before_action :set_main_panel, only: [:show, :edit, :update, :destroy]
+  include RethinkDB::Shortcuts
 
   # GET /main_panels
   # GET /main_panels.json
   def index
-    @main_panels = MainPanel.all
+    @ci_builds = CiBuild.all
   end
 
   # GET /main_panels/1
