@@ -24,36 +24,59 @@ App.main_panels =
   add_build: (new_build, label) ->
     chart = @build_chart() # Grab latest chart data
     month_name = App.ci_builds.getMonthLabel(new_build)
-
     @addData(chart, label, month_name)
-#    @build_chart()
 
   addData: (chart, label, month_name) ->
-    console.log('current_chart_data: ' + chart.data.datasets[0].data[0])
     month_index = MONTHS.indexOf(month_name)
-    console.log('month_index: ' + month_index)
-    console.log('before: ' + chart.data.datasets[0].data[month_index])
-    chart.data.datasets[0].data[month_index] = chart.data.datasets[0].data[month_index] + 1
-    console.log('after: ' + chart.data.datasets[0].data[month_index])
+
+    chart.data.datasets[0].data[month_index]++
     chart.update()
+
+    builds_string = @getCookie('builds')
+    builds_array = @stringToArray(builds_string)
+    builds_array[month_index]++
+    builds_string = builds_array.join('')
+    console.log(builds_array)
+    @setCookie('builds', builds_string, 365)
+
+  stringToArray: (string) ->
+    array = string.split('')
+    i = 0
+    while i < array.length
+      array[i] = +array[i]
+      i++
+    return array
+
+  setCookie: (cname, cvalue, exdays) ->
+    d = new Date();
+    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+    console.log(d)
+    expires = "expires="+d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+
+  getCookie: (cname) ->
+    name = cname + '='
+    decodedCookie = decodeURIComponent(document.cookie)
+    ca = decodedCookie.split(';')
+    i = 0
+    while i < ca.length
+      c = ca[i]
+      while c.charAt(0) == ' '
+        c = c.substring(1)
+      if c.indexOf(name) == 0
+        return c.substring(name.length, c.length)
+      i++
+    ''
 
   build_chart: () ->
     ctx = document.getElementById('myChart').getContext('2d')
-    months = document.getElementById('panel_container').getAttribute('data')
-    months = months.split('')
-    i = 0
-    while i < months.length
-      months[i] = +months[i]
-      i++
-
-    console.log('months: ' + months)
     new Chart(ctx, {
       type: 'line',
       data: {
         labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
         datasets: [{
           label: 'Successful Builds',
-          data: months,
+          data: @stringToArray(@getCookie('builds')),
           backgroundColor: "rgba(75, 192, 192, 0.2)",
           borderColor: "rgba(75, 192, 192, 1)",
           borderWidth: 1

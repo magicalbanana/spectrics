@@ -7,11 +7,11 @@ class MainPanelsController < ApplicationController
   # GET /main_panels
   # GET /main_panels.json
   def index
-    builds = []
-    builds_array = CiBuild.to_a
-    builds_array.each {|b| builds << b.attributes}
-    months_array = builds.map {|b| Time.zone.parse(b['stop_time']).strftime("%b")}
-    @months_count = MONTHS.map{|m| months_array.count(m)}.join('')
+    cookies[:builds] ||= {
+      :value => '000000000000',
+      :expires => 1.year.from_now,
+      :domain => 'localhost'
+    }
   end
 
   # GET /main_panels/1
