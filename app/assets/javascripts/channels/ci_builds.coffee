@@ -7,10 +7,8 @@ App.ci_builds = App.cable.subscriptions.create "CiBuildsChannel",
 
   # Called when there's incoming data on the websocket for this channel
   received: (data) ->
-    console.log(data)
     if data.new_val && !data.old_val
       label = @getMonthLabel(data.new_val)
-      console.log(data.new_val + ' label:' + label)
       App.main_panels.add_build(data.new_val, label)
 
   getMonthLabel: (build) ->
