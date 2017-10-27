@@ -18,9 +18,10 @@ App.main_panels =
       ("<li>#{user.id}</li>" for id,user of @active_users).join("")
     )
 
-  add_build: (new_build, label, data) ->
+
+  add_build: (new_build, label) ->
     chart = @build_chart()
-    @addData(chart, label, data)
+    @addData(chart, label, 1)
     @build_chart()
 
   addData: (chart, label, data) ->
@@ -32,13 +33,20 @@ App.main_panels =
 
   build_chart: () ->
     ctx = document.getElementById('myChart').getContext('2d')
+    months = document.getElementById('panel_container').getAttribute('data')
+    months = months.split('')
+    i = 0
+    while i < months.length
+      months[i] = +months[i]
+      i++
+
     new Chart(ctx, {
       type: 'line',
       data: {
         labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
         datasets: [{
           label: 'Successful Builds',
-          data: [],
+          data: months,
           backgroundColor: "rgba(75, 192, 192, 0.2)",
           borderColor: "rgba(75, 192, 192, 1)",
           borderWidth: 1

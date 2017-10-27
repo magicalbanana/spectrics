@@ -2,10 +2,16 @@ class MainPanelsController < ApplicationController
   before_action :set_main_panel, only: [:show, :edit, :update, :destroy]
   include RethinkDB::Shortcuts
 
+  MONTHS = %w(Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec)
+
   # GET /main_panels
   # GET /main_panels.json
   def index
-    @ci_builds = CiBuild.all
+    builds = []
+    builds_array = CiBuild.to_a
+    builds_array.each {|b| builds << b.attributes}
+    months_array = builds.map {|b| Time.zone.parse(b['stop_time']).strftime("%b")}
+    @months_count = MONTHS.map{|m| months_array.count(m)}.join('')
   end
 
   # GET /main_panels/1
