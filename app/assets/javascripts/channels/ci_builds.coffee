@@ -16,6 +16,5 @@ App.ci_builds = App.cable.subscriptions.create "CiBuildsChannel",
   getMonthLabel: (build) ->
     monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
     seconds = Date.parse(build.stop_time) # e.g. stop_time == 2013-02-12T21:34:01Z
-    date = new Date(0)
-    date.setUTCSeconds(seconds)
-    monthNames[date.getMonth() - 1]
+    date = new Date(seconds)
+    monthNames[date.getMonth()]
