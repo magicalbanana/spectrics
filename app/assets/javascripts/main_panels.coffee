@@ -2,6 +2,8 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
+MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+
 App.main_panels =
   active_users: {}
 
@@ -20,15 +22,19 @@ App.main_panels =
 
 
   add_build: (new_build, label) ->
-    chart = @build_chart()
-    @addData(chart, label, 1)
-    @build_chart()
+    chart = @build_chart() # Grab latest chart data
+    month_name = App.ci_builds.getMonthLabel(new_build)
 
-  addData: (chart, label, data) ->
-    chart.data.labels.push label
-    chart.data.datasets.forEach (dataset) ->
-      dataset.data.push data
-      return
+    @addData(chart, label, month_name)
+#    @build_chart()
+
+  addData: (chart, label, month_name) ->
+    console.log('current_chart_data: ' + chart.data.datasets[0].data[0])
+    month_index = MONTHS.indexOf(month_name)
+    console.log('month_index: ' + month_index)
+    console.log('before: ' + chart.data.datasets[0].data[month_index])
+    chart.data.datasets[0].data[month_index] = chart.data.datasets[0].data[month_index] + 1
+    console.log('after: ' + chart.data.datasets[0].data[month_index])
     chart.update()
 
   build_chart: () ->
@@ -40,6 +46,7 @@ App.main_panels =
       months[i] = +months[i]
       i++
 
+    console.log('months: ' + months)
     new Chart(ctx, {
       type: 'line',
       data: {
